@@ -1,20 +1,11 @@
-import Image from 'next/image';
 import styles from './index.module.scss'
-import Star from '../../public/images/star.svg'
 import { SearchBtn } from '../SearchBtn';
+import { PropsWithChildren, ReactNode, ReactPropTypes } from 'react';
 
-export const Card = () => {
+export const Card = (props : PropsWithChildren<ReactNode>) => {
   return(
     <div className={styles.card}>
-      <div className={styles.title}>
-        <h2 >
-          Qual seu nome?
-        </h2>
-      </div>
-      <div className={styles.searchBar}>
-        <input type="search" name="search" id="search" placeholder='Digite seu nome...' />
-      </div>
-      <SearchBtn/>
+      { props.children }
     </div>
   )
 }

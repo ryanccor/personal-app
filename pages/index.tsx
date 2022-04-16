@@ -1,18 +1,18 @@
-import type { NextPage, GetServerSideProps } from 'next';
-import styles from './index.module.scss'
-import Logo from '../public/images/logo_alana_15.svg'
-import { Img } from '../components/Img';
+import type { NextPage } from 'next';
+import { useState } from 'react';
+
 import { Card } from '../components/Card';
+import { SearchCard } from '../components/SearchCard';
 
 
 
 const Home: NextPage = () =>{  
+  const [guests, setGuests] = useState([])
 
   return (
-    <div className={styles.page}>
-      <Img src={Logo} alt='Logo' style={styles.image}/>
-      <Card/>
-    </div>
+      <Card>
+        <SearchCard/>
+      </Card>
 )}
 
 export default Home

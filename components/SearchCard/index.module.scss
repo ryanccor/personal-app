@@ -1,0 +1,59 @@
+$primary-color: linear-gradient(180deg, rgba(158, 6, 196, 0.73) 0%, rgba(22, 0, 45, 0) 100%), #1D0857;
+$secondary-color: linear-gradient(180deg, rgba(58, 0, 152, 0) 3.4%, rgba(96, 0, 254, 0.2) 100%), #FFF9F9;
+
+.title {
+  height: 15%;
+}
+
+.searchBar {
+  margin: 15px;
+  border: none;
+  background-color: rgba(29, 8, 87, 0.08);
+  padding: 10px;
+  border-radius: 9999px;
+  height: auto;
+  width: 65%;
+  
+  input {
+    border: none;
+    width: 100%;
+    background: none;
+    color: gray;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .searchBar {
+    margin: 15px;
+    
+    input {
+        width: 100%;
+      }
+    }
+}
+
+.searchBtn {
+  margin: 15px auto;
+  background: #1D0857;
+  border-radius: 9999px;
+  padding: 10px;
+  
+  button {
+    padding: 0px;
+    border: none;
+    background: none;
+    width:fit-content;
+    height: fit-content
+    
+  }
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+  background: none;
+  filter: invert(95%) sepia(100%) saturate(20%) hue-rotate(330deg) brightness(105%) contrast(107%);
+}

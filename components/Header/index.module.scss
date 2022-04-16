@@ -1,0 +1,18 @@
+.image {
+  margin: 10% auto 0px;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: 300px;
+}
+
+@media only screen and (max-width: 600px) {
+  .image {
+    margin: 25% auto 0px;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: 300px;
+  }
+  
+}

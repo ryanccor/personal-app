@@ -2,7 +2,7 @@ $primary-color: linear-gradient(180deg, rgba(158, 6, 196, 0.73) 0%, rgba(22, 0, 
 $secondary-color: linear-gradient(180deg, rgba(58, 0, 152, 0) 3.4%, rgba(96, 0, 254, 0.2) 100%), #FFF9F9;
 
 .card {
-  margin: 20vh auto;
+  margin: 0px auto;
   border-radius: 25px;
   background: $secondary-color;
   box-shadow: 5px 15px 15px $primary-color;
@@ -15,22 +15,19 @@ $secondary-color: linear-gradient(180deg, rgba(58, 0, 152, 0) 3.4%, rgba(96, 0, 
   flex-direction: column;
 }
 
-.title {
-  height: 15%;
-}
-
-.searchBar {
-  margin: 15px;
-  border: none;
-  background-color: rgba(29, 8, 87, 0.08);
-  padding: 10px;
-  border-radius: 9999px;
-  width: fit-content;
-  height: auto;
-  
-  input {
-    border: none;
-    background: none;
-    color: gray;
+@media only screen and (max-width: 600px) {
+  .card {
+    margin: 0px auto;
+    border-radius: 25px;
+    background: $secondary-color;
+    box-shadow: 5px 15px 15px $primary-color;
+    max-width: 85%;
+    height: 90%;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
+  
 }
