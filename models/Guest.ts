@@ -1,4 +1,7 @@
+import * as mongoDB from "mongodb";
+
 export type Guest = {
-  "nome": String,
-  "presenca": boolean
+  "name": String,
+  "confirmed": boolean,
+  "_id": mongoDB.ObjectId
 }

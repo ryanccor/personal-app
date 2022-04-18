@@ -1,0 +1,26 @@
+.searchBar {
+  margin: 15px;
+  border: none;
+  background-color: rgba(29, 8, 87, 0.08);
+  padding: 10px;
+  border-radius: 9999px;
+  display: flex;
+  height: auto;
+  width: 85%;
+  transition: margin 2s;
+  
+  input {
+    border: none;
+    width: 100%;
+    background: none;
+    color: black;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  select {
+    border: none;
+    background: none;
+  }
+}

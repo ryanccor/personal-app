@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { connectToDatabase } from '@/util/connectToDatabase'
 
+import { connectToDatabase } from '@/util/connectToDatabase'
+import { Family } from '@/models/Family'
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,9 +12,9 @@ export default async function handler(
   const { guest } = req.query
 
   if (client) {
-    const convidados = await db.collection('convidados').find({}).toArray()
+    const familias = await db.collection('convidados').find({}).toArray() as Array<Family>
     return res.status(200).json({
-      "convidados": convidados
+      "familias": familias
     })
   }
 }
