@@ -1,12 +1,19 @@
+import { Family } from "@/models/Family"
+import { useFetch } from "@/util/fetcher"
+import { Params } from "next/dist/server/router"
 import Link from "next/link"
 import { useState } from "react"
 import { Img } from "../Img"
 import styles from './index.module.scss'
 import Star from './star.svg'
 
+type Props = {
+  familias: Array<Family>
+}
 
-export const SearchCard = () => {
-  const [nome, setNome] = useState('')
+
+export const SearchCard = ({ familias } : Props) => {
+  const [families, setFamilies] = useState(familias)
 
 
   return (
@@ -19,11 +26,18 @@ export const SearchCard = () => {
       <div className={styles.searchBar}>
         <input type="search" name="search" id="search" placeholder='Digite seu nome...' />
       </div>
-      <Link href={`/fulano`}> 
-      <div className={styles.searchBtn}>
+      <button className={styles.searchBtn}>
         <Img src={Star} alt='Star' style={styles.icon}></Img>
-      </div>
-      </Link> 
+      </button> 
     </>
   )
+}
+
+export default async function getStaticProps({ params }: Params){
+  const { data } = await useFetch(`/api/guest/`)
+  return {
+    props: {
+      familias: data.familias
+    } 
+  }
 }

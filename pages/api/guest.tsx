@@ -9,8 +9,6 @@ export default async function handler(
 ) {
   const {db, client} = await connectToDatabase()
 
-  const { guest } = req.query
-
   if (client) {
     const familias = await db.collection('convidados').find({}).toArray() as Array<Family>
     return res.status(200).json({
