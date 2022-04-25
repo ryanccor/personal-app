@@ -5,13 +5,13 @@ import Logo from '../../public/images/logo_alana_15.svg'
 import { AppProps } from 'next/app';
 
 type ImgProps = ImageProps & {
-  style: string
+  style?: string
 }
 
 export const Img = ({ src, alt, style }: ImgProps ) =>{  
 
   return (
-    <div className={style}>
+    <div className={style ?? 'image'}>
       <Image
         src={src}
         alt={alt}

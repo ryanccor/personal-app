@@ -14,7 +14,6 @@ type Props = {
 const Home = ({ familias }: Props) =>{  
   const [familiies, setFamilies] = useState(familias)
   const [target, setTarget] = useState('')
-  const [filtered, setFiltered] = useState()
 
   return (
       <Card>
@@ -41,7 +40,7 @@ const Home = ({ familias }: Props) =>{
             } 
         }
           ).map(
-            (familia) => <GuestCard {...familia}></GuestCard>
+            (familia) => <GuestCard {...familia} edit={ false }></GuestCard>
           )
         }
         </div>
@@ -49,7 +48,7 @@ const Home = ({ familias }: Props) =>{
 )}
 
 export async function getServerSideProps() {
-  const { data } = await useFetch(`http://localhost:3000/api/guest`)
+  const { data } = await useFetch(`http://localhost:3000/api/guests`)
   
   return {
     props: {
