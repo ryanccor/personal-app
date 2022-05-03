@@ -3,6 +3,12 @@
   background: #1D0857;
   border-radius: 9999px;
   padding: 10px;
+  display: flex;
+  justify-content: left;
+  
+  &:focus > button {
+    justify-content: right;
+  }
   
   button {
     padding: 0px;
@@ -11,6 +17,7 @@
     width:fit-content;
     height: fit-content;
     cursor: pointer;
+    animation-duration: 2s;
   }
 }
 

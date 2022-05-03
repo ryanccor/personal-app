@@ -1,0 +1,17 @@
+.addButton {
+  margin: 15px auto;
+  background: rgba(29, 8, 87, 0.08);;
+  color: white;
+  font-weight: bold;
+  border-radius: 9999px;
+  padding: 10px;
+  width: fit-content;
+  height: auto;
+  
+  button {
+    padding: 0px;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+}

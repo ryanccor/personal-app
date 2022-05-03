@@ -15,13 +15,10 @@ const Edit = ({ familias }: Props) => {
   return (
     <Card>
       <Add clicado={ false }></Add>
-      <div>
         { familiies.map(
             (familia) => <GuestCard {...familia} edit={ true }></GuestCard>
           )
         }
-        </div>
-
     </Card>
   )
 }

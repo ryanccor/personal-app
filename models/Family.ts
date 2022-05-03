@@ -3,6 +3,6 @@ import { Guest } from "./Guest";
 
 export type Family = {
   _id? : mongoDB.ObjectId,
-  family_name : String,
+  family_name : string,
   guests : Guest[]
 }
