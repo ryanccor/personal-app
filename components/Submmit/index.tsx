@@ -7,7 +7,7 @@ import styles from './index.module.scss'
 export const Submmit = () => {
   return (
     <div className={styles.searchBtn}>
-      <button onClick={(e) => {console.log(e.currentTarget.value)}}>
+      <button onClick={(e) => {}}>
         <Img src={Star} alt='Star' style={styles.icon}></Img>
       </button>
   </div>

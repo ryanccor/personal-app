@@ -20,14 +20,14 @@ if (!dbName) {
 
 export async function connectToDatabase() {
   if (cachedClient && cachedDb){
-    return {client: cachedClient, db: cachedDb}
+    return {client: cachedClient as mongoDB.MongoClient, db: cachedDb as mongoDB.Db}
   }
 
   const client = await mongoDB.MongoClient.connect(uri);
   const db: mongoDB.Db = client.db(dbName);
 
-  cachedClient = client
-  cachedDb = db
+  cachedClient = client as mongoDB.MongoClient
+  cachedDb = db as mongoDB.Db
 
   return { client, db }
 }

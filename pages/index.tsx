@@ -1,15 +1,18 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 import { Family } from '@/models/Family';
 import { useFetch } from '@/util/fetcher';
+import { GuestCard } from '@/components/GuestCard';
+
 import { Card } from '../components/Card';
 import styles from './index.module.scss'
-import { Guest } from '@/models/Guest';
-import { GuestCard } from '@/components/GuestCard';
+import { Submmit } from '@/components/Submmit';
+
 
 type Props = {
   familias: Array<Family>
 }
+
 
 const Home = ({ familias }: Props) =>{  
   const [familiies, setFamilies] = useState(familias)
@@ -44,6 +47,7 @@ const Home = ({ familias }: Props) =>{
           )
         }
         </div>
+        <Submmit/>
       </Card>
 )}
 
