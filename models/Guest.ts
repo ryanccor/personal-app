@@ -8,6 +8,5 @@ export class Guest {
     public _id? : mongoDB.ObjectId,
   ) {
     this._id = new ObjectID()
-
   }
 }

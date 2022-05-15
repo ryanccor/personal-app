@@ -4,6 +4,7 @@
   border-radius: 9999px;
   padding: 10px;
   display: flex;
+  width: fit-content;
   justify-content: left;
   
   &:focus > button {
@@ -17,7 +18,6 @@
     width:fit-content;
     height: fit-content;
     cursor: pointer;
-    animation-duration: 2s;
   }
 }
 

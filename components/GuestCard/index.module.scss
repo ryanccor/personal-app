@@ -14,6 +14,22 @@
     width: 100%;
     justify-content: space-between;
 
+    .remove {
+      background: red;
+      border-radius: 9999px;
+      padding: 5px;
+      margin-left: 2px;
+      
+      button {
+          border: none;
+          width: 17px;
+          background: transparent;
+          color: white;
+          padding: 0%;
+          margin: 0%;
+      }
+    }
+
     .name {
       border: none;
       width: 100%;
@@ -42,5 +58,19 @@
     &:focus {
       outline: none;
     } 
+  }
+
+  .add {
+    border-radius: 9999px;
+    color: rgb(61, 61, 61);
+    background-color: rgba(189, 189, 189, 0.29);
+    margin: 0 auto;
+    padding: 10px;
+    width: fit-content;
+
+    button {
+      border: none;
+      background-color: transparent;
+    }
   }
 }

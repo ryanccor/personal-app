@@ -1,11 +1,12 @@
+$primary-color: linear-gradient(180deg, rgba(158, 6, 196, 0.73) 0%, rgba(22, 0, 45, 0) 100%), #1D0857;
+$secondary-color: linear-gradient(180deg, rgba(58, 0, 152, 0) 3.4%, rgba(96, 0, 254, 0.2) 100%), #FFF9F9;
+
 .page {
   height: 200vh;
   width: 100%;
   background: linear-gradient(180deg, rgba(158, 6, 196, 0.73) 0%, rgba(22, 0, 45, 0) 100%), #1D0857;
 }
 
-$primary-color: linear-gradient(180deg, rgba(158, 6, 196, 0.73) 0%, rgba(22, 0, 45, 0) 100%), #1D0857;
-$secondary-color: linear-gradient(180deg, rgba(58, 0, 152, 0) 3.4%, rgba(96, 0, 254, 0.2) 100%), #FFF9F9;
 
 .title {
   height: 15%;

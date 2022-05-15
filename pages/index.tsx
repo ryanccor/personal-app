@@ -6,25 +6,28 @@ import { GuestCard } from '@/components/GuestCard';
 
 import { Card } from '../components/Card';
 import styles from './index.module.scss'
-import { Submmit } from '@/components/Submmit';
+import { Add } from '@/components/Add';
 
 
 type Props = {
-  familias: Array<Family>
+  familias: Family[]
 }
 
 
-const Home = ({ familias }: Props) =>{  
+const Home = ({ familias }: Props) =>{
+  const logged = false  
   const [familiies, setFamilies] = useState(familias)
   const [target, setTarget] = useState('')
 
   return (
       <Card>
-        <div className={styles.title}>
-          <h2>
-            Qual seu nome?
-          </h2>
-        </div>
+        {
+          logged
+          ? <Add/>
+          : (<div className={styles.title}>
+              <h2>Qual seu nome?</h2>
+            </div>)
+        }
         <div className={styles.searchBar}>
           <input
             type="search" 
@@ -39,15 +42,14 @@ const Home = ({ familias }: Props) =>{
         { familiies.filter(
           (familia) => {
             if (familia.guests.some((e) => { return e.name.toLowerCase().includes(target.toLowerCase()) && target != "" } )) {
-              return familia
+              return true
             } 
         }
           ).map(
-            (familia) => <GuestCard {...familia} edit={ false }></GuestCard>
+            (familia) => <GuestCard key={familia._id.toString()} {...familia} edit={ logged }></GuestCard>
           )
         }
         </div>
-        <Submmit/>
       </Card>
 )}
 

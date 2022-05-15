@@ -14,9 +14,9 @@ const Edit = ({ familias }: Props) => {
 
   return (
     <Card>
-      <Add clicado={ false }></Add>
+      <Add/>
         { familiies.map(
-            (familia) => <GuestCard {...familia} edit={ true }></GuestCard>
+            (familia) => <GuestCard key={familia._id.toString()} {...familia} edit={ true }></GuestCard>
           )
         }
     </Card>

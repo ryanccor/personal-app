@@ -5,15 +5,9 @@ import { Family } from "@/models/Family"
 import { Guest } from "@/models/Guest"
 
 import { GuestCard } from "../GuestCard"
-import { Submmit } from "../Submmit"
-import styles from './index.module.scss'
-import { useForm } from "react-hook-form"
-import { cp } from "fs/promises"
 
-const Add = ({ clicado }) => {
-  const [data, setData] = useState('')
+const Add = () => {
   const [guests, setGuests] = useState<Guest[]>([new Guest( 'Digite o nome do convidado', false)])
-  const { register, handleSubmit } = useForm()
   
   const newFamily: Family =  {
     _id: new ObjectID(),
@@ -22,15 +16,9 @@ const Add = ({ clicado }) => {
   } 
   
   return (
-    <form onSubmit={handleSubmit((data) => setData( JSON.stringify(data) )  )}>
+    <div>
       <GuestCard edit={ true } { ...newFamily }></GuestCard>
-      <div className={ styles.addButton }>
-        <button onClick={ () => setGuests([...guests, new Guest( 'Digite o nome do convidado', false)]) }>
-          Adicionar Convidado
-        </button>
-      </div>
-      <Submmit></Submmit>
-    </form>
+    </div>
   )
 }
 
