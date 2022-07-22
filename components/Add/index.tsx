@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { ObjectID } from "bson"
 
 import { Family } from "@/models/Family"
@@ -7,7 +6,7 @@ import { Guest } from "@/models/Guest"
 import { GuestCard } from "../GuestCard"
 
 const Add = () => {
-  const [guests, setGuests] = useState<Guest[]>([new Guest( 'Digite o nome do convidado', false)])
+  const guests = [new Guest( 'Digite o nome do convidado', false)]
   
   const newFamily: Family =  {
     _id: new ObjectID(),
@@ -17,7 +16,7 @@ const Add = () => {
   
   return (
     <div>
-      <GuestCard edit={ true } { ...newFamily }></GuestCard>
+      <GuestCard edit={ true } add={true} { ...newFamily }></GuestCard>
     </div>
   )
 }

@@ -1,7 +1,8 @@
 import styles from './index.module.scss'
+
 const Loading = () => {
   return (
-    <div>
+    <div className={styles.loading}>
 
     </div>
   )

@@ -1,46 +1,56 @@
-import { ObjectId, ObjectID } from "bson"
-import { Formik, Form, Field, FieldArray } from "formik"
+import { ObjectID } from "bson"
+import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik"
 
 import { Family } from "@/models/Family"
 import { Submmit } from "../Submmit"
-import styles from './index.module.scss'
-import { Add } from "../Add"
 import { Guest } from "@/models/Guest"
+import { Loading } from "../Loading"
 
-type GuestCardProps = Family & { edit : boolean}
+import styles from './index.module.scss'
+import { formSchema } from "./formSchema"
+import { useState } from "react"
 
-export const GuestCard = ({ guests, _id, family_name, edit }: GuestCardProps) => {
+type GuestCardProps = Family & { edit : boolean, add?: boolean }
+
+export const GuestCard = ({ guests, _id, family_name, edit, add }: GuestCardProps) => {
+
   return (
     <div>
 
     <Formik
+      validationSchema={
+        formSchema
+      }
       initialValues={{
         _id,
         family_name,
         guests: [...guests]
       }}
-    onSubmit={async (values) =>  {
+    
+      onSubmit={async (values) =>  {
       
       await fetch('http://localhost:3000/api/edit',
-      {method: 'POST',
+      {
+        method: 'POST',
         body: JSON.stringify(values) 
       })
 
-      
     }}
     >
-      {({ values, isSubmitting }) => (
+      {({ values, isSubmitting, errors }) => (
         <Form>
         { isSubmitting 
-        ? <h2>Carregando...</h2>
+        ? <Loading/>
         : <div className={styles.wrapper}>
-      
           { edit 
-          ? <Field 
+          ? <>
+            <Field 
             type="text" 
             className={ styles.familyName } 
             name="family_name"
-            /> 
+            />
+            <ErrorMessage name="family_name"/>
+            </> 
           : <h1>{ family_name }</h1> }
       
           <div className={styles.guestList}>
@@ -56,16 +66,18 @@ export const GuestCard = ({ guests, _id, family_name, edit }: GuestCardProps) =>
                       <div className={styles.round}>
                         
                         { edit 
-                        ? <Field 
+                        ? <>
+                          <Field 
                           className={ styles.name } 
                           type="text" 
                           name={`guests.${index}.name`} 
                           onMouseDown={
                             (e) => {
-                              if (e.currentTarget.value == 'Digite o nome do convidado...'){
+                              if (e.currentTarget.value == 'Digite o nome do convidado'){
                                 e.currentTarget.value = ''
                               }}
-                            }/> 
+                            }/>
+                          </>
                         : <p className={ styles.name }>{ guest.name }</p> }
                         
                         <Field component="select" name={`guests.${index}.confirmed`} id="confirm">
@@ -77,12 +89,15 @@ export const GuestCard = ({ guests, _id, family_name, edit }: GuestCardProps) =>
                        ? <div className={ styles.remove }>
                             <button type="button" onClick={(e) => { 
                             e.preventDefault()
-                            remove(index)}}>X</button>
+                            remove(index)}}>
+                              X
+                            </button>
                           </div>
-                        : ''
+                        : null
                           }
 
                       </div>
+                      <ErrorMessage name={`guests.${index}.name`} />
                     </div>
                   )
                 })
@@ -92,7 +107,7 @@ export const GuestCard = ({ guests, _id, family_name, edit }: GuestCardProps) =>
                       <button type="button" onClick={e =>
                         push({
                           _id: new ObjectID(),
-                          name: "Digite o nome do convidado...",
+                          name: "Digite o nome do convidado",
                           confirmed: false
                         } as Guest)
                       }>

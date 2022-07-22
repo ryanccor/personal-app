@@ -1,0 +1,16 @@
+$primary-color: linear-gradient(180deg, rgba(158, 6, 196, 0.73) 0%, rgba(22, 0, 45, 0) 100%), #1D0857;
+
+.loading {
+  border: 4px solid #f3f3f3; /* Light grey */
+  border-top: 4px solid #1D0857; /* Blue */
+  border-radius: 9999px;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+  margin: 15px;
+}
+
+@keyframes spin {
+  0% {transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
