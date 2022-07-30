@@ -7,6 +7,8 @@ import { Card } from '../components/Card';
 import { Add } from '@/components/Add';
 
 import styles from './index.module.scss';
+import { ObjectID } from 'bson';
+import { Guest } from '@/models/Guest';
 
 
 type Props = {
@@ -15,9 +17,18 @@ type Props = {
 
 
 const Home = ({ familias }: Props) =>{
-  const logged = true  
   const [target, setTarget] = useState('')
 
+  const createNewFamily = () => {
+    return {
+      _id: new ObjectID(),
+      family_name: 'Nome da Família',
+      guests: [new Guest( 'Digite o nome do convidado', false)]
+    }
+  }
+  
+  const [newFamily, setNewFamily] = useState(() => createNewFamily)
+  
   return (
       <Card>
         <div className={styles.title}>
@@ -33,10 +44,6 @@ const Home = ({ familias }: Props) =>{
             onChange={(e) => {setTarget(e.currentTarget.value)}}
             />
         </div>
-        { logged
-          ? <Add/>
-          : null
-        }
         <div>
         { familias.filter(
           (familia) => {
@@ -45,7 +52,7 @@ const Home = ({ familias }: Props) =>{
             } 
         }
           ).map(
-            (familia) => <GuestCard key={familia._id.toString()} {...familia} edit={ logged }/>
+            (familia) => <GuestCard key={familia._id.toString()} {...familia}/>
           )
         }
         </div>
@@ -53,7 +60,8 @@ const Home = ({ familias }: Props) =>{
 )}
 
 export async function getServerSideProps() {
-  const { data } = await useFetch(`http://localhost:3000/api/guests`)
+  const response = await fetch(`http://localhost:3000/api/guests`)
+  const data = await response.json()
   
   return {
     props: {

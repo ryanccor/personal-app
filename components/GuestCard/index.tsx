@@ -2,18 +2,21 @@ import { ObjectID } from "bson"
 import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik"
 
 import { Family } from "@/models/Family"
-import { Submmit } from "../Submmit"
 import { Guest } from "@/models/Guest"
+
+import { Submmit } from "../Submmit"
 import { Loading } from "../Loading"
+import { formSchema } from "./formSchema"
 
 import styles from './index.module.scss'
-import { formSchema } from "./formSchema"
-import { useState } from "react"
+import { useNewFamily, useStore } from "@/util/state"
 
-type GuestCardProps = Family & { edit : boolean, add?: boolean }
+type GuestCardProps = Family & { edit? : boolean, add?: boolean }
 
 export const GuestCard = ({ guests, _id, family_name, edit, add }: GuestCardProps) => {
-
+  const state = useStore()
+  const setNewFamily = useNewFamily((state) => state.new)
+  
   return (
     <div>
 
@@ -33,6 +36,11 @@ export const GuestCard = ({ guests, _id, family_name, edit, add }: GuestCardProp
       {
         method: 'POST',
         body: JSON.stringify(values) 
+      }).then(() => {
+        if (add) {
+          state.inc(values)
+          setNewFamily()
+        }
       })
 
     }}
@@ -52,7 +60,29 @@ export const GuestCard = ({ guests, _id, family_name, edit, add }: GuestCardProp
             <ErrorMessage name="family_name"/>
             </> 
           : <h1>{ family_name }</h1> }
-      
+          
+          {
+            !add 
+            && 
+            <div  className={ styles.remove }>
+              <button 
+                type="button"
+                onClick={
+                  async () => {
+                    await fetch('http://localhost:3000/api/remove',{
+                      method: 'POST',
+                      body: JSON.stringify({
+                        _id: values._id
+                      })
+                    }).then(() => state.del(values._id))
+                    .catch((error) => errors.family_name = error)
+                  }
+                }
+                >
+              Remover
+            </button>
+          </div>
+}      
           <div className={styles.guestList}>
       
           <FieldArray name="guests">
@@ -111,7 +141,7 @@ export const GuestCard = ({ guests, _id, family_name, edit, add }: GuestCardProp
                           confirmed: false
                         } as Guest)
                       }>
-                        Add</button>
+                        Mais um convidado</button>
                   </div>
                   : ''
                   }
