@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Family } from '@/models/Family';
 import { useFetch } from '@/util/fetcher';
@@ -9,25 +9,23 @@ import { Add } from '@/components/Add';
 import styles from './index.module.scss';
 import { ObjectID } from 'bson';
 import { Guest } from '@/models/Guest';
+import { useStore } from '@/util/state';
 
 
 type Props = {
-  familias: Family[]
+  familyProps: Family[]
 }
 
 
-const Home = ({ familias }: Props) =>{
+const Home = ({ familyProps }: Props) =>{
   const [target, setTarget] = useState('')
+  const {familias, init} = useStore()
 
-  const createNewFamily = () => {
-    return {
-      _id: new ObjectID(),
-      family_name: 'Nome da Família',
-      guests: [new Guest( 'Digite o nome do convidado', false)]
+  useEffect(
+    () => {
+      init(familyProps)
     }
-  }
-  
-  const [newFamily, setNewFamily] = useState(() => createNewFamily)
+  ,[familyProps, init])
   
   return (
       <Card>
@@ -60,12 +58,12 @@ const Home = ({ familias }: Props) =>{
 )}
 
 export async function getServerSideProps() {
-  const response = await fetch(`http://localhost:3000/api/guests`)
+  const response = await fetch(`http://127.0.0.1:3000/api/guests`)
   const data = await response.json()
   
   return {
     props: {
-      familias: data.familias,
+      familyProps: data.familias,
     } 
   }
 }

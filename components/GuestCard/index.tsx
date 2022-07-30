@@ -61,10 +61,10 @@ export const GuestCard = ({ guests, _id, family_name, edit, add }: GuestCardProp
             </> 
           : <h1>{ family_name }</h1> }
           
-          {
+          { edit &&
             !add 
             && 
-            <div  className={ styles.remove }>
+            <div >
               <button 
                 type="button"
                 onClick={

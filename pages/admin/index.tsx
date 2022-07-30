@@ -3,14 +3,17 @@ import { useEffect, useState } from "react"
 import { Card } from "@/components/Card"
 import { GuestCard } from "@/components/GuestCard"
 import { Family } from "@/models/Family"
-import { useFetch } from "@/util/fetcher"
 import { useNewFamily, useStore } from '@/util/state'
+import styles from './index.module.scss'
+
 
 type Props = {
   familyProps: Family[]
 }
 
 const Edit = ({ familyProps }: Props) => {
+  
+  const [target, setTarget] = useState('')
   
   const {familias, init} = useStore()
   const newFamily = useNewFamily((state) => state.familia)
@@ -19,13 +22,30 @@ const Edit = ({ familyProps }: Props) => {
     () => {
       init(familyProps)
     }
-  ,[])
+  ,[familyProps, init])
 
 
   return (
     <Card>
       <GuestCard key={newFamily._id.toString()} add={true} edit={true} {...newFamily}/>
-        { familias.map(
+      <div className={styles.searchBar}>
+          <input
+            type="search" 
+            name="search" 
+            id="search" 
+            placeholder='Pesquisa...' 
+            value={target}  
+            onChange={(e) => {setTarget(e.currentTarget.value)}}
+            />
+        </div>
+
+        { familias.filter(
+          (familia) => {
+            if (familia.guests.some((e) => { return e.name.toLowerCase().includes(target.toLowerCase()) && target != null } )) {
+              return true
+              } 
+            }
+          ).map(
             (familia) => <GuestCard key={familia._id.toString()} edit={ true } {...familia} />
           )
         }
@@ -34,7 +54,7 @@ const Edit = ({ familyProps }: Props) => {
 }
 
 export async function getServerSideProps() {
-  const response = await fetch(`http://localhost:3000/api/guests`)
+  const response = await fetch(`http://127.0.0.1:3000/api/guests`)
   const data = await response.json()
   
   return {

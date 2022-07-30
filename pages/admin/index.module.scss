@@ -1,0 +1,19 @@
+.searchBar {
+  margin: 15px;
+  border: none;
+  background-color: rgba(29, 8, 87, 0.08);
+  padding: 10px;
+  border-radius: 9999px;
+  height: auto;
+  width: 65%;
+  
+  input {
+    border: none;
+    width: 100%;
+    background: none;
+    color: gray;
+    &:focus {
+      outline: none;
+    }
+  }
+}
