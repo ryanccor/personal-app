@@ -58,7 +58,7 @@ const Home = ({ familyProps }: Props) =>{
 )}
 
 export async function getServerSideProps() {
-  const response = await fetch(`http://127.0.0.1:3000/api/guests`)
+  const response = await fetch(`https://alana15.vercel.app/api/guests`)
   const data = await response.json()
   
   return {
