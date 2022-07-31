@@ -1,16 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { Family } from '@/models/Family';
-import { useFetch } from '@/util/fetcher';
 import { GuestCard } from '@/components/GuestCard';
-import { Card } from '../components/Card';
-import { Add } from '@/components/Add';
+import { Card } from '@/components/Card';
+import { Family } from '@/models/Family';
+import { useStore } from '@/util/state';
+import { connectToDatabase } from '@/util/connectToDatabase';
 
 import styles from './index.module.scss';
-import { ObjectID } from 'bson';
-import { Guest } from '@/models/Guest';
-import { useStore } from '@/util/state';
-
 
 type Props = {
   familyProps: Family[]
@@ -58,12 +54,14 @@ const Home = ({ familyProps }: Props) =>{
 )}
 
 export async function getServerSideProps() {
-  const response = await fetch(`https://alana15.vercel.app/api/guests`)
-  const data = await response.json()
+  const {db, client} = await connectToDatabase()
+
+  const result = client && await db.collection('convidados').find({}).toArray() as Family[]
+  const data = JSON.stringify(result)
   
   return {
     props: {
-      familyProps: data.familias,
+      familyProps: JSON.parse(data),
     } 
   }
 }

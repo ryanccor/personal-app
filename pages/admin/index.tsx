@@ -4,6 +4,8 @@ import { Card } from "@/components/Card"
 import { GuestCard } from "@/components/GuestCard"
 import { Family } from "@/models/Family"
 import { useNewFamily, useStore } from '@/util/state'
+import { connectToDatabase } from "@/util/connectToDatabase"
+
 import styles from './index.module.scss'
 
 
@@ -45,7 +47,7 @@ const Edit = ({ familyProps }: Props) => {
               return true
               } 
             }
-          ).map(
+          ).reverse().map(
             (familia) => <GuestCard key={familia._id.toString()} edit={ true } {...familia} />
           )
         }
@@ -54,12 +56,14 @@ const Edit = ({ familyProps }: Props) => {
 }
 
 export async function getServerSideProps() {
-  const response = await fetch(`https://alana15.vercel.app/api/guests`)
-  const data = await response.json()
+  const {db, client} = await connectToDatabase()
+
+  const result = client && await db.collection('convidados').find({}).toArray() as Family[]
+  const data = JSON.stringify(result)
   
   return {
     props: {
-      familyProps: data.familias,
+      familyProps: JSON.parse(data),
     } 
   }
 }

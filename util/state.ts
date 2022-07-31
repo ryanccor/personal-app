@@ -4,7 +4,7 @@ import create from "zustand";
 
 const useStore = create<ListFamilyState>()((set) => ({
   familias : [] ,
-  inc: (familia) => (set((state) => ({ familias: [familia,...state.familias] }))),
+  inc: (familia) => (set((state) => ({ familias: [...state.familias, familia] }))),
   del: (_id) => (set((state) => ({ familias: [...state.familias.filter(x => x._id != _id)] }))),
   init: (familyList) => (set(() => ({ familias: familyList })))
 }))

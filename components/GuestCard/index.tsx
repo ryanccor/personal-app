@@ -3,13 +3,13 @@ import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik"
 
 import { Family } from "@/models/Family"
 import { Guest } from "@/models/Guest"
+import { useNewFamily, useStore } from "@/util/state"
 
 import { Submmit } from "../Submmit"
 import { Loading } from "../Loading"
 import { formSchema } from "./formSchema"
 
 import styles from './index.module.scss'
-import { useNewFamily, useStore } from "@/util/state"
 
 type GuestCardProps = Family & { edit? : boolean, add?: boolean }
 
@@ -32,7 +32,7 @@ export const GuestCard = ({ guests, _id, family_name, edit, add }: GuestCardProp
     
       onSubmit={async (values) =>  {
       
-      await fetch('http://localhost:3000/api/edit',
+      await fetch('/api/edit',
       {
         method: 'POST',
         body: JSON.stringify(values) 
@@ -45,7 +45,7 @@ export const GuestCard = ({ guests, _id, family_name, edit, add }: GuestCardProp
 
     }}
     >
-      {({ values, isSubmitting, errors }) => (
+      {({ values, isSubmitting, errors, setSubmitting }) => (
         <Form>
         { isSubmitting 
         ? <Loading/>
@@ -56,6 +56,11 @@ export const GuestCard = ({ guests, _id, family_name, edit, add }: GuestCardProp
             type="text" 
             className={ styles.familyName } 
             name="family_name"
+            onMouseDown={(e)=>{
+              if(e.currentTarget.value == 'Nome da Familia'){
+                e.currentTarget.value = ''
+              }
+            }}
             />
             <ErrorMessage name="family_name"/>
             </> 
@@ -64,17 +69,21 @@ export const GuestCard = ({ guests, _id, family_name, edit, add }: GuestCardProp
           { edit &&
             !add 
             && 
-            <div >
+            <div className={ styles.removeBtn }>
               <button 
                 type="button"
                 onClick={
-                  async () => {
-                    await fetch('http://localhost:3000/api/remove',{
+                  async (e) => {
+                    setSubmitting(true)
+                    const response = await fetch('/api/remove',{
                       method: 'POST',
                       body: JSON.stringify({
                         _id: values._id
                       })
-                    }).then(() => state.del(values._id))
+                    }).then(() => {
+                      state.del(values._id)
+                      setSubmitting(false)
+                    })
                     .catch((error) => errors.family_name = error)
                   }
                 }
